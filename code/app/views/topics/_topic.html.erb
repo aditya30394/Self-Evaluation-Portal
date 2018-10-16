@@ -1,0 +1,8 @@
+<li>
+  <ul class="ul_two">
+    <li><%= link_to topic.name, topic %></li>
+    <li><%= link_to "Edit", edit_topic_path(topic) %></li>
+    <li><%= link_to "Delete", topic, method: :delete,
+                    data: {confirm: "Are you sure to delete this topic?"} %></li>
+  </ul> 
+</li>

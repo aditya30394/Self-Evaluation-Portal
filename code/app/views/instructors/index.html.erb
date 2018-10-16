@@ -1,0 +1,16 @@
+<% provide(:title, 'Instructors') %>
+<h1>All instructors</h1>
+
+<% if current_instructor.admin? %>
+  <h2><%= link_to "Add New Instructor", create_instructor_path %></h2>
+<% end %>
+
+<%= will_paginate %>
+
+<ul class="instructors">
+  <% @instructors.each do |instructor| %>
+    <%= render instructor %>
+  <% end %>
+</ul>
+
+<%= will_paginate %>

@@ -1,0 +1,42 @@
+<% provide(:title, "Problem "+(@thisid+1).to_s) %>
+<h1><%= "Problem " + (@thisid+1).to_s + "/" + session[:problems].size.to_s %></h1>
+<div class="row">
+  <aside class="col-md-12">
+    <section class="problem_info">
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+      <h1>Problem Topic: </h1>
+      <div class="problemview"><%= @problem.topic.name%></div>
+
+      <h1>Question: </h1>
+      <div class = "problemview"><%= simple_format(@problem.question) %></div>
+
+      <%= form_for(:student) do |f| %>
+        <h1>Your Answer: </h1>
+        <%= f.text_area :answer, :value => @lastanswer %>
+        <%= f.submit "Save Your Answer", class: "btn btn-primary"%>
+      <% end %>
+
+      <div class = "buttons">
+        <% if (@thisid==0) %>
+          <%= link_to "Previous Problem", quiz_problem_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary", style: "width:20%" %>
+        <% else %>
+          <%= link_to "Previous Problem", quiz_problem_path(:thisid => @thisid, :nextid => @thisid - 1) , class: "btn btn-primary", style: "width:20%"  %>
+        <% end %>
+        <% if (@thisid==session[:problems].size-1) %>
+          <%= link_to "Next Problem", quiz_problem_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary", style: "width:20%;float:right"  %>
+        <% else %>
+          <%= link_to "Next Problem", quiz_problem_path(:thisid => @thisid, :nextid => @thisid + 1), class: "btn btn-primary", style: "width:20%;float:right"  %>
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to "Finish Evaluation", quiz_problem_answer_path , class: "btn btn-primary", style: "width:20%"  %>
+      </div>
+
+
+    </section>
+  </aside>
+</div>
+
+

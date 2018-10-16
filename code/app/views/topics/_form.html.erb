@@ -1,0 +1,7 @@
+<%= form_for @topic do |f| %>
+  <%= render 'shared/error_messages_topic', object: @topic %>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

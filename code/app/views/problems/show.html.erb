@@ -1,0 +1,25 @@
+<% provide(:title, "Problem "+@problem.id.to_s) %>
+<div class="row">
+  <aside class="col-md-12">
+    <section class="problem_info">
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+      <h1>Problem Topic: </h1>
+      <div class="problemview"><%= link_to @problem.topic.name, @problem.topic%></div>
+
+      <h1>Question: </h1>
+      <div class = "problemview"><%= simple_format(@problem.question) %></div>
+
+      <h1>Answer: </h1>
+      <div class = "problemview"><%= simple_format(@problem.answer) %></div>
+
+      <h1>Remark: </h1>
+      <div class = "problemview"><%= simple_format(@problem.remark) %></div>
+
+      <h1><%= link_to "Edit Problem", edit_problem_path(@problem) %> </h1>
+      <br />
+      <h1><%= link_to "Delete Problem", @problem, method: :delete,
+                  data: {confirm: "Are you sure to delete this problem?"} %></h1>
+
+    </section>
+  </aside>
+</div>

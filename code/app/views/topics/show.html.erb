@@ -1,0 +1,26 @@
+<% provide(:title, @topic.name) %>
+<div class="row">
+  <aside class="col-md-3">
+    <section class="topic_info">
+      <h1>
+        <%= @topic.name %>
+      </h1>
+
+      <h2><%= link_to "Edit Topic", edit_topic_path(@topic)%></h2>
+
+      <h2><%= link_to "Create New Problem", new_problem_path(:topic_from => @topic.id)%></h2>
+
+      <h2><%= link_to "View All Topics", topics_path %></h2>
+    </section>
+  </aside>
+
+  <div class="col-md-9">
+    <h3>Problems (<%= @topic.problems.count %>)</h3>
+    <% if @topic.problems.any? %>
+      <ol class="problems">
+        <%= render @problems %>
+      </ol>
+      <%= will_paginate @problems %>
+    <% end %>
+  </div>
+</div>
