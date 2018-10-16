@@ -1,0 +1,2 @@
+describe ApplicationJob do
+end

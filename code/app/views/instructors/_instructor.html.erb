@@ -1,0 +1,17 @@
+<li>
+  <ul class="ul_five">
+    <li style="width:30%"><%= link_to instructor.name, instructor %></li>
+    <li style="width:30%"><%= link_to instructor.email, "mailto:" + instructor.email %></li>
+    <li style="width:15%"> <% if instructor.admin %>
+        Administrator
+      <% end %></li>
+    <li style="width:15%">
+      <% if !instructor.activated %>
+        Not Activated
+      <% end %></li>
+    <li style="width:10%"> <% if current_instructor.admin? && !current_instructor?(instructor) %>
+        <%= link_to "delete", instructor, method: :delete,
+                    data: { confirm: "Are you sure to delete the instructor?" } %>
+      <% end %></li>
+  </ul>
+</li>

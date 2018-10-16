@@ -1,0 +1,2 @@
+describe ApplicationMailer do
+end

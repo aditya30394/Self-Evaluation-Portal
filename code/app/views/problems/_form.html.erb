@@ -1,0 +1,13 @@
+<%= form_for(@problem) do |f| %>
+  <%= render 'shared/error_messages_problem', object: @problem %>
+
+  <%= f.label :question %>
+  <%= f.text_area :question, class: 'form-control' %>
+  <%= f.label :answer %>
+  <%= f.text_area :answer, class: 'form-control' %>
+  <%= f.label :remark %>
+  <%= f.text_area :remark, class: 'form-control' %>
+
+  <%= f.collection_select  :topic_id, Topic.all, :id, :name%>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

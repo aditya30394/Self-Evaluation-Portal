@@ -1,0 +1,24 @@
+<% provide(:title, @instructor.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="instructor_info">
+      <h1>
+        <%= @instructor.name %>
+      </h1>
+      <div class = "instructorview">
+      <div><%= link_to @instructor.email, "mailto:" + @instructor.email %></div>
+      <div> <% if @instructor.admin %>
+          Administrator
+          <% else %>
+          Normal User
+        <% end %></div>
+      <div>
+        <% if !@instructor.activated %>
+          Not Activated
+        <% else %>
+        Activated
+        <% end %></div>
+      </div>
+    </section>
+  </aside>
+</div>

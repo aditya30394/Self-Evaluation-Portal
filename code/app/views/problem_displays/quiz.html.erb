@@ -1,0 +1,24 @@
+<% provide(:title, "Select Topics") %>
+<h1>Select Topics</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:selected) do |f| %>
+
+      <%= f.label "Topics"%>
+
+      <% @topics.each do |topic| %>
+        <%= f.label topic.id, class: "checkbox inline" do %>
+          <%= f.check_box topic.id, {:checked=>true}, '1', '0' %>
+          <span><%=topic.name%></span>
+        <% end %>
+      <% end %>
+      <%= f.label :quiz_type%>
+        <%= f.collection_select  :quiz_type, ["Quiz","Flashcard"], :to_s, :to_s%>
+
+
+      <%= f.submit "Select Topics", class: "btn btn-primary" %>
+    <% end %>
+
+  </div>
+</div>
