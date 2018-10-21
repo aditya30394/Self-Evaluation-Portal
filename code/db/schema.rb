@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181021044708) do
+ActiveRecord::Schema.define(version: 20181021064431) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "instructors", force: :cascade do |t|
     t.string "name"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 20181021044708) do
     t.boolean "is_answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "problem_id"
+    t.bigint "problem_id"
     t.index ["problem_id"], name: "index_options_on_problem_id"
   end
 
@@ -37,9 +40,11 @@ ActiveRecord::Schema.define(version: 20181021044708) do
     t.text "question"
     t.text "answer"
     t.text "remark"
-    t.integer "topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "topic_id"
+    t.bigint "question_type_id"
+    t.index ["question_type_id"], name: "index_problems_on_question_type_id"
     t.index ["topic_id"], name: "index_problems_on_topic_id"
   end
 
@@ -55,4 +60,7 @@ ActiveRecord::Schema.define(version: 20181021044708) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "options", "problems"
+  add_foreign_key "problems", "question_types"
+  add_foreign_key "problems", "topics"
 end
