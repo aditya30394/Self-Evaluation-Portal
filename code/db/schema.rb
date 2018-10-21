@@ -238,7 +238,7 @@ ActiveRecord::Schema.define(version: 20181021064431) do
   create_table "topics", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "topic"
+    t.text "name"
   end
 
   create_table "triggers", id: :serial, force: :cascade do |t|
