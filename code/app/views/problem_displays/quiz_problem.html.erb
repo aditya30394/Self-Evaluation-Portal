@@ -10,7 +10,12 @@
 
       <h1>Question: </h1>
       <div class = "problemview"><%= simple_format(@problem.question) %></div>
-
+      <% @option.each do |option| %>
+        <%= check_box_tag "options[]", option.id %> <%= option.answer %>
+      <% end %>
+      <pre>
+  <%= @option.inspect %>
+</pre>
       <%= form_for(:student) do |f| %>
         <h1>Your Answer: </h1>
         <%= f.text_area :answer, :value => @lastanswer %>

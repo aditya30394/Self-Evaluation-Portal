@@ -34,6 +34,7 @@ class ProblemDisplaysController < ApplicationController
     @lastanswer =  session[:answers][@thisid]
 
     @problem = Problem.find(session[:problems][@thisid])
+    @option = @problem.options
   end
 
   def quiz_problem_answer
