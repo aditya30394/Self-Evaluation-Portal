@@ -46,17 +46,15 @@ class ProblemDisplaysController < ApplicationController
     end
     session[:current_problem] = @thisid
     @lastanswer =  session[:answers][@thisid]
-
     @problem = Problem.find(session[:problems][@thisid])
+    @option = @problem.options
   end
 
   def save_answer
+    params[:options].inspect
     @thisid = session[:current_problem]
     session[:answers][@thisid] = params[:options]
     @lastanswer =  session[:answers][@thisid]
-    
-    #session[:answers][@thisid] = params[:student][:answer]
-    #@lastanswer =  session[:answers][@thisid]
     @problem = Problem.find(session[:problems][@thisid])
     @option = @problem.options
     render 'quiz_problem'
