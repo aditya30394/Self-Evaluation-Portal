@@ -10,15 +10,18 @@
 
       <h1>Question: </h1>
       <div class = "problemview"><%= simple_format(@problem.question) %></div>
-      <% @option.each do |option| %>
-        <%= check_box_tag "options[]", option.id %> <%= option.answer %>
-      <% end %>
-      <pre>
-  <%= @option.inspect %>
-</pre>
+      <h1>Your Answer: </h1>
+      <br>
       <%= form_for(:student) do |f| %>
-        <h1>Your Answer: </h1>
-        <%= f.text_area :answer, :value => @lastanswer %>
+        <% if (@problem.question_type.question_type!="MCQ") %>
+          <%= f.text_area :answer, :value => @lastanswer %>
+        <% end %>
+        
+        <% @option.each do |option| %>
+          <%= f.label option.id, class: "checkbox inline" do %>
+            <%= check_box_tag "options[]", option.id %> <span><%=option.answer%></span>
+          <% end %>
+        <% end %>
         <%= f.submit "Save Your Answer", class: "btn btn-primary"%>
       <% end %>
 
