@@ -1,8 +1,28 @@
 <% provide(:title, "Problem " + (@thisid+1).to_s) %>
-<h1><%= "Problem " + (@thisid+1).to_s + "/" + session[:problems].size.to_s %></h1>
+<h1><%= "Problem " + (@thisid+1).to_s + "/" + (@tillid+1).to_s %></h1>
 <div class="row">
   <aside class="col-md-12">
     <section class="problem_info">
+
+      <div class="problemview" align="center">
+        <h1 align="center" style="width:fit-content">Result: </h1>
+        <table>
+        <tr> 
+          <th> Total </th> 
+          <th> <%= session[:result].to_s + "/" + (@tillid+1).to_s %> </th>
+        </tr>
+        <% session[:topics].each do |id| %>
+        <tr>
+          <td style="padding-right:20px"> <%= session[:topic_names][id].to_s %> </td>
+          <td> <%= session[:topic_results][id].to_s.nil? ? 0  : session[:topic_results][id].to_s + "/" + session[:topic_problems][id].to_s %> </td> 
+        </tr>
+        <% end %>
+        </table>
+        <%= session[:topic_names] %>
+        <%= session[:topic_problems] %>
+        <%= session[:topics] %>
+      </div>
+    
       <h1>Problem Topic: </h1>
       <div class="problemview"><%= @problem.topic.name%></div>
 
@@ -10,23 +30,27 @@
       <div class="problemview"><%= simple_format(@problem.question) %></div>
 
       <h1>Answer: </h1>
-      <div class="problemview"><%= simple_format(@problem.answer) %></div>
+      <div class="problemview">
+        <% @correct_answers.each do |c_answer| %>
+          <%= c_answer %> <br> 
+        <% end %>
+      </div>
 
       <h1>Your Answer: </h1>
-      <div class="problemview"><%= @lastanswer %></div>
+      <div class="problemview">
+        <% @your_answers.each do |y_answer| %>
+          <%= y_answer %> <br> 
+        <% end %>
+      </div>
 
       <h1>Remark: </h1>
       <div class="problemview"><%= simple_format(@problem.remark) %></div>
 
       <div class = "buttons">
-        <% if (@thisid == 0) %>
-          <%= link_to "Previous Problem", quiz_problem_answer_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary", style: "width:20%"  %>
-        <% else %>
+        <% if (@thisid != 0) %>
           <%= link_to "Previous Problem", quiz_problem_answer_path(:thisid => @thisid, :nextid => @thisid - 1), class: "btn btn-primary", style: "width:20%"  %>
         <% end %>
-        <% if (@thisid == session[:problems].size - 1) %>
-          <%= link_to "Next Problem", quiz_problem_answer_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary", style: "width:20%;float:right"  %>
-        <% else %>
+        <% if (@thisid != session[:tillid].to_i) %>
           <%= link_to "Next Problem", quiz_problem_answer_path(:thisid => @thisid, :nextid => @thisid + 1), class: "btn btn-primary", style: "width:20%;float:right"  %>
         <% end %>
       </div>
