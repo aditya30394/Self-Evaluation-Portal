@@ -7,20 +7,17 @@
       <div class="problemview" align="center">
         <h1 align="center" style="width:fit-content">Result: </h1>
         <table>
-        <tr> 
-          <th> Total </th> 
-          <th> <%= session[:result].to_s + "/" + (@tillid+1).to_s %> </th>
-        </tr>
-        <% session[:topics].each do |id| %>
-        <tr>
-          <td style="padding-right:20px"> <%= session[:topic_names][id].to_s %> </td>
-          <td> <%= session[:topic_results][id].to_s.nil? ? 0  : session[:topic_results][id].to_s + "/" + session[:topic_problems][id].to_s %> </td> 
-        </tr>
-        <% end %>
+          <tr> 
+            <th> Total </th> 
+            <th> <%= session[:result].to_s + "/" + (@tillid+1).to_s %> </th>
+          </tr>
+          <% session[:topics].each do |id| %>
+          <tr>
+            <td style="padding-right:20px"> <%= session[:topic_names][id].to_s %> </td>
+            <td> <%= session[:topic_results][id].to_s + "/" + session[:topic_problems][id].to_s %> </td> 
+          </tr>
+          <% end %>
         </table>
-        <%= session[:topic_names] %>
-        <%= session[:topic_problems] %>
-        <%= session[:topics] %>
       </div>
     
       <h1>Problem Topic: </h1>
