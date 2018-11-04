@@ -15,6 +15,16 @@
 
       <h1>Remark: </h1>
       <div class="problemview"><%= simple_format(@problem.remark) %></div>
+      
+      <%if (!@problem.links.empty?) %>
+      <h1>For more info: </h1>
+      <div class = "problemview">
+           <% @problem.links.each do |link| %>
+              <%= link_to nil, link.link%>
+              <br>
+        <% end %>
+        <% end %>
+      </div>
 
       <div>
         <%= link_to "Hide Answer", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary", style: "width:100%" %>
