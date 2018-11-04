@@ -3,7 +3,7 @@
 <div class="row">
   <aside class="col-md-12">
     <section class="problem_info">
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
       <h1>Problem Topic: </h1>
       <div class="problemview"><%= @problem.topic.name%></div>
 
@@ -15,6 +15,16 @@
 
       <h1>Remark: </h1>
       <div class="problemview"><%= simple_format(@problem.remark) %></div>
+      
+      <%if (!@problem.links.empty?) %>
+      <h1>For more info: </h1>
+      <div class = "problemview">
+           <% @problem.links.each do |link| %>
+              <%= link_to nil, link.link%>
+              <br>
+        <% end %>
+        <% end %>
+      </div>
 
       <div>
         <%= link_to "Hide Answer", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary", style: "width:100%" %>
