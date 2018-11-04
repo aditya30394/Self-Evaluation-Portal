@@ -3,6 +3,7 @@ class ProblemsController < ApplicationController
 
   def new
     @topics = Topic.all
+    @question_types = QuestionType.all
     @problem = Problem.new
     if(params[:topic_from])
       @problem[:topic_id] = params[:topic_from]
@@ -11,8 +12,31 @@ class ProblemsController < ApplicationController
 
   def create
     @problem = Problem.new(problem_params)
+    
     if @problem.save
       flash[:success] = "Problem created."
+      
+      # Save options incase MCQ
+      correct = params.require(:problem).permit(:correct)
+      
+      unless correct.nil? || correct == ""
+        id = @problem.id
+        
+        logger.debug Problem.find_by_id id
+        options = params.require(:problem).permit(:option => [:option0, :option1, :option2, :option3])
+        
+        options[:option].each do |key|
+          option = Option.new()
+          option.answer = options[:option][key]
+          option.problem_id = id
+          
+          if correct[:correct] == key
+            option.is_answer = true
+          end
+          option.save!
+        end
+      end
+        
       redirect_to @problem
     else
       render 'new'
@@ -51,7 +75,7 @@ class ProblemsController < ApplicationController
   private
 
   def problem_params
-    params.require(:problem).permit(:question, :answer, :remark, :topic_id)
+    params.require(:problem).permit(:question, :answer, :remark, :topic_id, :question_type_id)
   end
 
   def instructor_params
