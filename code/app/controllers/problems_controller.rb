@@ -13,33 +13,49 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(problem_params)
     
-    if @problem.save
-      flash[:success] = "Problem created."
-      
-      # Save options incase MCQ
+    # Problem is MCQ
+    if @problem[:question_type_id] == 1
+      options = option_params
       correct = params.require(:problem).permit(:correct)
       
-      unless correct.nil? || correct == ""
-        id = @problem.id
-        
-        logger.debug Problem.find_by_id id
-        options = params.require(:problem).permit(:option => [:option0, :option1, :option2, :option3])
-        
-        options[:option].each do |key|
-          option = Option.new()
-          option.answer = options[:option][key]
-          option.problem_id = id
+      if !correct[:correct].nil?
+        # Save problem first to add options(Options belongs to Problems)
+        if @problem.save
+          flash[:success] = "Problem created."
+          id = @problem.id
           
-          if correct[:correct] == key
-            option.is_answer = true
+          options[:options].each do |key|
+            option = Option.new()
+            option.answer = options[:options][key]
+            option.problem_id = id
+            
+            if correct[:correct] == key
+              option.is_answer = true
+            end
+            
+            if option.save
+              # Option saved
+            else
+              flash[:danger] = "Options not saved properly."
+            end
           end
-          option.save!
+          redirect_to @problem
+        else
+          flash[:danger] = "Unable to save Problem."
+          redirect_to Problem.new
         end
+      else
+        flash[:danger] = "Options not provided. Problem and Options not saved."
+        redirect_to Problem.new
       end
-        
-      redirect_to @problem
+    # Problem is short answer type
     else
-      render 'new'
+      if @problem.save
+        flash[:success] = "Problem created."
+        redirect_to @problem
+      else
+        render 'new'
+      end
     end
   end
 
@@ -81,6 +97,10 @@ class ProblemsController < ApplicationController
   def instructor_params
     params.require(:instructor).permit(:name, :email, :password,
                                        :password_confirmation)
+  end
+  
+  def option_params
+    params.require(:problem).permit(:options => [:option0, :option1, :option2, :option3])
   end
 
   def logged_in_instructor
