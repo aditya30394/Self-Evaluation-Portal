@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181021064431) do
+ActiveRecord::Schema.define(version: 20181104181154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 20181021064431) do
     t.boolean "admin"
     t.boolean "activated"
     t.index ["email"], name: "index_instructors_on_email", unique: true
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.text "link"
+    t.bigint "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_links_on_problem_id"
   end
 
   create_table "options", force: :cascade do |t|
@@ -60,6 +68,7 @@ ActiveRecord::Schema.define(version: 20181021064431) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "links", "problems"
   add_foreign_key "options", "problems"
   add_foreign_key "problems", "question_types"
   add_foreign_key "problems", "topics"
