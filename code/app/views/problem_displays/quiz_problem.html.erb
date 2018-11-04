@@ -3,7 +3,6 @@
 <div class="row">
   <aside class="col-md-12">
     <section class="problem_info">
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
 
       <h1>Problem Topic: </h1>
       <div class="problemview"><%= @problem.topic.name%></div>
@@ -44,7 +43,7 @@
       </div>
 
       <div>
-        <%= link_to "Finish Evaluation", quiz_problem_answer_path , class: "btn btn-primary", style: "width:20%"  %>
+        <%= link_to "Finish Evaluation", quiz_problem_answer_path(:tillid => @thisid) , class: "btn btn-primary", style: "width:20%"  %>
       </div>
 
 

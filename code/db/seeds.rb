@@ -57,6 +57,8 @@ problem.options.create!(answer: "Improved binary search", is_answer: false)
 problem.options.create!(answer: "Dynamic programming", is_answer: false)
 problem.options.create!(answer: "Divide and conquer", is_answer: true)
 
+problem.links.create!(link: "https://www.geeksforgeeks.org/quick-sort/")
+
 #=======================================================================================================#
 
 problem = topic.problems.create!(question: "Which data structures are used for Depth-first search (DFS) of a graph?",
@@ -68,6 +70,8 @@ problem.options.create!(answer: "Queue", is_answer: false)
 problem.options.create!(answer: "Stack", is_answer: true)
 problem.options.create!(answer: "None of the above", is_answer: false)
 
+problem.links.create!(link: "https://www.tutorialspoint.com/data_structures_algorithms/depth_first_traversal.htm")
+problem.links.create!(link: "http://web.cs.unlv.edu/larmore/Courses/CSC477/bfsDfs.pdf")
 #=======================================================================================================#
 
 problem = topic.problems.create!(question: "Which one of the following uses LIFO(Last In First Out) for accessing elements?",
@@ -79,6 +83,7 @@ problem.options.create!(answer: "Queue", is_answer: false)
 problem.options.create!(answer: "Stack", is_answer: true)
 problem.options.create!(answer: "None of the above", is_answer: false)
 
+problem.links.create!(link: "https://www.geeksforgeeks.org/stack-data-structure/")
 #=======================================================================================================#
 
 problem = topic.problems.create!(question: "Which one of the following is non-linear data structure?",
@@ -92,6 +97,7 @@ problem.options.create!(answer: "Linked List", is_answer: false)
 problem.options.create!(answer: "Queues", is_answer: false)
 problem.options.create!(answer: "Trees", is_answer: true)
 
+problem.links.create!(link: "https://techdifferences.com/difference-between-linear-and-non-linear-data-structure.html")
 #=======================================================================================================#
 
 problem = topic.problems.create!(question: "Which one of the following is False about Array and Linked List?",
@@ -103,6 +109,8 @@ problem.options.create!(answer: "The size of the arrays is fixed, Linked Lists a
 problem.options.create!(answer: "Both insertion and deletion can easily be done in Array.t", is_answer: true)
 problem.options.create!(answer: "Random access is not allowed in Linked Listed.", is_answer: false)
 problem.options.create!(answer: "Extra memory space for a pointer is required with each element of the Linked list.", is_answer: false)
+
+problem.links.create!(link: "https://www.geeksforgeeks.org/linked-list-vs-array/")
 
 #=======================================================================================================#
 
@@ -116,6 +124,8 @@ problem.options.create!(answer: "unsorted", is_answer: false)
 problem.options.create!(answer: "in a heap", is_answer: false)
 problem.options.create!(answer: "popped out of stack", is_answer: false)
 
+problem.links.create!(link: "https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search")
+
 #=======================================================================================================#
 
 problem = topic.problems.create!(question: "Which of the below mentioned sorting algorithms are not stable?",
@@ -127,6 +137,10 @@ problem.options.create!(answer: "Selection Sort", is_answer: true)
 problem.options.create!(answer: "Bubble Sort", is_answer: false)
 problem.options.create!(answer: "Merge Sort", is_answer: false)
 problem.options.create!(answer: "Insertion Sort", is_answer: false)
+
+problem.links.create!(link: "https://www.geeksforgeeks.org/stability-in-sorting-algorithms/")
+problem.links.create!(link: "http://homepages.math.uic.edu/~leon/cs-mcs401-s08/handouts/stability.pdf")
+problem.links.create!(link: "https://en.wikipedia.org/wiki/Sorting_algorithm#Stability")
 
 #=======================================================================================================#
 
@@ -178,6 +192,7 @@ problem.options.create!(answer: "strcat();", is_answer: false)
 problem.options.create!(answer: "free();", is_answer: true)
 problem.options.create!(answer: "memcpy();", is_answer: false)
 
+problem.links.create!(link: "https://www.tutorialspoint.com/cprogramming/c_memory_management.htm")
 #=======================================================================================================#
 
 problem = topic.problems.create!(question: "Which of the following is correct about tuples in python?",
