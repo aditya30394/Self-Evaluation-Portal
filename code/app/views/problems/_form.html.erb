@@ -1,13 +1,29 @@
 <%= form_for(@problem) do |f| %>
   <%= render 'shared/error_messages_problem', object: @problem %>
+  
+  <%= f.label :topic %>
+  <%= f.collection_select  :topic_id, @topics, :id, :name%>
+  
+  <%= f.label :type %>
+  <%= f.collection_select :question_type_id, @question_types, :id, :question_type%>
 
   <%= f.label :question %>
-  <%= f.text_area :question, class: 'form-control' %>
-  <%= f.label :answer %>
-  <%= f.text_area :answer, class: 'form-control' %>
-  <%= f.label :remark %>
-  <%= f.text_area :remark, class: 'form-control' %>
+  <%= f.text_area :question, placeholder: "Enter Question here", class: 'form-control' %>
+  
+  <%= f.label "Add answer for short answer questions below" %>
+  <%= f.text_area :answer, placeholder: "Enter Answer here", class: 'form-control' %>
+  
+  <%= f.label "Add options for multiple-choice (select the correct answer)" %>
+  <% for i in 0..3 do %>
+    <div class="col-md-12">
+      <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6" />
+      <input type="checkbox" class="col-md-6" name="problem[correct[option<%= i %>]]" />
+    </div>
+  <% end %>
+  
+  <input type="text" name="problem[link]" placeholder="Link", class='form-control' />
+  
+  <%= f.text_area :remark, placeholder: "Remark", class: 'form-control' %>
 
-  <%= f.collection_select  :topic_id, Topic.all, :id, :name%>
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

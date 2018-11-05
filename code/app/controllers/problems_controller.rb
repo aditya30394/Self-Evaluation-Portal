@@ -3,6 +3,7 @@ class ProblemsController < ApplicationController
 
   def new
     @topics = Topic.all
+    @question_types = QuestionType.all
     @problem = Problem.new
     if(params[:topic_from])
       @problem[:topic_id] = params[:topic_from]
@@ -11,11 +12,49 @@ class ProblemsController < ApplicationController
 
   def create
     @problem = Problem.new(problem_params)
-    if @problem.save
-      flash[:success] = "Problem created."
-      redirect_to @problem
+    
+    # Problem is MCQ
+    if @problem[:question_type_id] == 1
+      options = option_params
+      
+      if !options[:options].nil? && !options[:correct].nil?
+        # Save problem first to add options(Options belongs to Problems)
+        if @problem.save
+          flash[:success] = "Problem created."
+          
+          # Save all 4 options
+          options[:options].each do |key|
+            _is_answer = !options[:correct][key].nil?
+            opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
+            if opt
+              # Option saved
+            else
+              flash[:danger] = "Options not saved properly."
+            end
+          end
+          
+          # Save any links
+          save_link
+          
+          redirect_to @problem
+        else
+          flash[:danger] = "Unable to save Problem."
+          redirect_to Problem.new
+        end
+      else
+        flash[:danger] = "Provide answers and correct choices for MCQ."
+        redirect_to Problem.new
+      end
+    # Problem is short answer type
     else
-      render 'new'
+      if @problem.save
+        flash[:success] = "Problem created."
+        save_link
+        
+        redirect_to @problem
+      else
+        render 'new'
+      end
     end
   end
 
@@ -29,6 +68,8 @@ class ProblemsController < ApplicationController
 
   def edit
     @problem = Problem.find(params[:id])
+    @topics = Topic.all
+    @question_types = QuestionType.all
   end
 
   def update
@@ -51,12 +92,29 @@ class ProblemsController < ApplicationController
   private
 
   def problem_params
-    params.require(:problem).permit(:question, :answer, :remark, :topic_id)
+    params.require(:problem).permit(:question, :answer, :remark, :topic_id, :question_type_id)
   end
 
   def instructor_params
     params.require(:instructor).permit(:name, :email, :password,
                                        :password_confirmation)
+  end
+  
+  def option_params
+    params.require(:problem).permit(:correct => [:option0, :option1, :option2, :option3], :options => [:option0, :option1, :option2, :option3])
+  end
+  
+  def save_link
+    link_param = params.require(:problem).permit(:link)
+    
+    if !link_param[:link].nil? && link_param[:link] != ""
+      opt = @problem.links.create(link: link_param[:link])
+      if opt
+        # Link created
+      else
+        flash[:danger] = "Link not created."
+      end
+    end
   end
 
   def logged_in_instructor

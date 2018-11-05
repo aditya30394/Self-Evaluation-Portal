@@ -58,6 +58,7 @@ class ProblemDisplaysController < ApplicationController
     @problem = Problem.find(session[:problems][@thisid])
     @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
     @your_answers = Array.new      
+
     if(!@lastanswer.nil? && !@lastanswer.empty?)
       @lastanswer.each do |id|
         @your_answers.push(Option.find(id).answer)
