@@ -16,35 +16,33 @@ class ProblemsController < ApplicationController
     # Problem is MCQ
     if @problem[:question_type_id] == 1
       options = option_params
-      correct = params.require(:problem).permit(:correct)
       
-      if !correct[:correct].nil?
-        # Save problem first to add options(Options belongs to Problems)
-        if @problem.save
-          flash[:success] = "Problem created."
-          
-          # Save all 4 options
-          options[:options].each do |key|
-            opt = @problem.options.create(answer: options[:options][key], is_answer: correct[:correct] == key)
-            if opt
-              # Option saved
-            else
-              flash[:danger] = "Options not saved properly."
-            end
+      # Save problem first to add options(Options belongs to Problems)
+      if @problem.save
+        flash[:success] = "Problem created."
+        
+        # Save all 4 options
+        options[:options].each do |key|
+          logger.debug options[:options][key]
+          logger.debug options[:correct][key].nil?
+          _is_answer = !options[:correct][key].nil?
+          opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
+          if opt
+            # Option saved
+          else
+            flash[:danger] = "Options not saved properly."
           end
-          
-          # Save any links
-          save_link
-          
-          redirect_to @problem
-        else
-          flash[:danger] = "Unable to save Problem."
-          redirect_to Problem.new
         end
+        
+        # Save any links
+        save_link
+        
+        redirect_to @problem
       else
-        flash[:danger] = "Correct option not selected. Problem and Options not saved."
+        flash[:danger] = "Unable to save Problem."
         redirect_to Problem.new
       end
+
     # Problem is short answer type
     else
       if @problem.save
@@ -68,6 +66,8 @@ class ProblemsController < ApplicationController
 
   def edit
     @problem = Problem.find(params[:id])
+    @topics = Topic.all
+    @question_types = QuestionType.all
   end
 
   def update
@@ -99,7 +99,7 @@ class ProblemsController < ApplicationController
   end
   
   def option_params
-    params.require(:problem).permit(:options => [:option0, :option1, :option2, :option3])
+    params.require(:problem).permit(:correct => [:option0, :option1, :option2, :option3], :options => [:option0, :option1, :option2, :option3])
   end
   
   def save_link

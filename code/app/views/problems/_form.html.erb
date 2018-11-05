@@ -17,7 +17,7 @@
   <% for i in 0..3 do %>
     <div class="col-md-12">
       <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6" />
-      <input type="radio" class="col-md-6" name="problem[correct]" value="option<%= i %>"/>
+      <input type="checkbox" class="col-md-6" name="problem[correct[option<%= i %>]]" />
     </div>
   <% end %>
   
