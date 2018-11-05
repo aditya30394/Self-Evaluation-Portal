@@ -17,32 +17,34 @@ class ProblemsController < ApplicationController
     if @problem[:question_type_id] == 1
       options = option_params
       
-      # Save problem first to add options(Options belongs to Problems)
-      if @problem.save
-        flash[:success] = "Problem created."
-        
-        # Save all 4 options
-        options[:options].each do |key|
-          logger.debug options[:options][key]
-          logger.debug options[:correct][key].nil?
-          _is_answer = !options[:correct][key].nil?
-          opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
-          if opt
-            # Option saved
-          else
-            flash[:danger] = "Options not saved properly."
+      if !options[:options].nil? && !options[:correct].nil?
+        # Save problem first to add options(Options belongs to Problems)
+        if @problem.save
+          flash[:success] = "Problem created."
+          
+          # Save all 4 options
+          options[:options].each do |key|
+            _is_answer = !options[:correct][key].nil?
+            opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
+            if opt
+              # Option saved
+            else
+              flash[:danger] = "Options not saved properly."
+            end
           end
+          
+          # Save any links
+          save_link
+          
+          redirect_to @problem
+        else
+          flash[:danger] = "Unable to save Problem."
+          redirect_to Problem.new
         end
-        
-        # Save any links
-        save_link
-        
-        redirect_to @problem
       else
-        flash[:danger] = "Unable to save Problem."
+        flash[:danger] = "Provide answers and correct choices for MCQ."
         redirect_to Problem.new
       end
-
     # Problem is short answer type
     else
       if @problem.save
