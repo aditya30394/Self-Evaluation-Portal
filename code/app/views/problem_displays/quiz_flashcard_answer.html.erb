@@ -11,7 +11,11 @@
       <div class="problemview"><%= simple_format(@problem.question) %></div>
 
       <h1>Answer: </h1>
-      <div class="problemview"><%= simple_format(@problem.answer) %></div>
+      <div class="problemview">
+        <% @correct_answers.each do |c_answer| %>
+          <%= c_answer %> <br> 
+        <% end %>
+      </div>
 
       <h1>Remark: </h1>
       <div class="problemview"><%= simple_format(@problem.remark) %></div>

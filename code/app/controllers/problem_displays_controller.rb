@@ -58,7 +58,8 @@ class ProblemDisplaysController < ApplicationController
     @problem = Problem.find(session[:problems][@thisid])
     @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
     @your_answers = Array.new      
-    if(!@lastanswer.nil?)
+
+    if(!@lastanswer.nil? && !@lastanswer.empty?)
       @lastanswer.each do |id|
         @your_answers.push(Option.find(id).answer)
       end
@@ -80,7 +81,7 @@ class ProblemDisplaysController < ApplicationController
         @correct_answer = @problem.options.where("is_answer = true").pluck(:id)
         @your_answer = session[:answers][i]
         @ans = Array.new
-        if(!@your_answer.nil?)
+        if(!@your_answer.nil? && !@your_answer.empty?)
           @your_answer.each do |ans|
             @ans.push(ans.to_i)
           end
@@ -122,6 +123,7 @@ class ProblemDisplaysController < ApplicationController
       @thisid = 0
     end
     @problem = Problem.find(session[:problems][@thisid])
+    @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
   end
 
 end
