@@ -21,6 +21,8 @@
     </div>
   <% end %>
   
+  <input type="text" name="problem[link]" placeholder="Link", class='form-control' />
+  
   <%= f.text_area :remark, placeholder: "Remark", class: 'form-control' %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>

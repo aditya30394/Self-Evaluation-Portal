@@ -22,36 +22,35 @@ class ProblemsController < ApplicationController
         # Save problem first to add options(Options belongs to Problems)
         if @problem.save
           flash[:success] = "Problem created."
-          id = @problem.id
           
+          # Save all 4 options
           options[:options].each do |key|
-            option = Option.new()
-            option.answer = options[:options][key]
-            option.problem_id = id
-            
-            if correct[:correct] == key
-              option.is_answer = true
-            end
-            
-            if option.save
+            opt = @problem.options.create(answer: options[:options][key], is_answer: correct[:correct] == key)
+            if opt
               # Option saved
             else
               flash[:danger] = "Options not saved properly."
             end
           end
+          
+          # Save any links
+          save_link
+          
           redirect_to @problem
         else
           flash[:danger] = "Unable to save Problem."
           redirect_to Problem.new
         end
       else
-        flash[:danger] = "Options not provided. Problem and Options not saved."
+        flash[:danger] = "Correct option not selected. Problem and Options not saved."
         redirect_to Problem.new
       end
     # Problem is short answer type
     else
       if @problem.save
         flash[:success] = "Problem created."
+        save_link
+        
         redirect_to @problem
       else
         render 'new'
@@ -101,6 +100,19 @@ class ProblemsController < ApplicationController
   
   def option_params
     params.require(:problem).permit(:options => [:option0, :option1, :option2, :option3])
+  end
+  
+  def save_link
+    link_param = params.require(:problem).permit(:link)
+    
+    if !link_param[:link].nil? && link_param[:link] != ""
+      opt = @problem.links.create(link: link_param[:link])
+      if opt
+        # Link created
+      else
+        flash[:danger] = "Link not created."
+      end
+    end
   end
 
   def logged_in_instructor
