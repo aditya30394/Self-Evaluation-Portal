@@ -20,6 +20,13 @@ Instructor.create!(name:  "Hang Li",
              admin: true,
              activated: true)
              
+Instructor.create!(name:  "Mayukh",
+             email: "mayukhrc95@email.tamu.edu",
+             password:              "123456",
+             password_confirmation: "123456",
+             admin: true,
+             activated: true)
+             
 Instructor.create!(name:  "Hanna",
              email: "hanna@tamu.edu",
              password:              "123456",
