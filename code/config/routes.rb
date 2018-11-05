@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :instructors
   resources :topics
   resources :problems
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 
   get '/help',  to: 'static_pages#help'
   get '/about',  to: 'static_pages#about'

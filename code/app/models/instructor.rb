@@ -1,5 +1,5 @@
 class Instructor < ApplicationRecord
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :reset_token
   before_save { self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -15,6 +15,18 @@ class Instructor < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
   
+  # Sets the password reset attributes.
+  def create_reset_digest
+    self.reset_token = Instructor.new_token
+    update_attribute(:reset_digest,  Instructor.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+  
+  # Sends password reset email.
+  def send_password_reset_email
+    InstructorMailer.password_reset(self).deliver_now
+  end
+  
   def self.new_token
     SecureRandom.urlsafe_base64
   end
@@ -22,6 +34,10 @@ class Instructor < ApplicationRecord
   def remember
     self.remember_token = Instructor.new_token
     update_attribute(:remember_digest, Instructor.digest(remember_token))
+  end
+  
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
   end
   
   def authenticated?(remember_token)
