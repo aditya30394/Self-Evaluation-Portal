@@ -29,14 +29,39 @@ ActiveRecord::Schema.define(version: 20181104181154) do
     t.index ["email"], name: "index_instructors_on_email", unique: true
   end
 
+  create_table "links", force: :cascade do |t|
+    t.text "link"
+    t.bigint "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_links_on_problem_id"
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.text "answer"
+    t.boolean "is_answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "problem_id"
+    t.index ["problem_id"], name: "index_options_on_problem_id"
+  end
+
   create_table "problems", force: :cascade do |t|
     t.text "question"
     t.text "answer"
     t.text "remark"
-    t.integer "topic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "topic_id"
+    t.bigint "question_type_id"
+    t.index ["question_type_id"], name: "index_problems_on_question_type_id"
     t.index ["topic_id"], name: "index_problems_on_topic_id"
+  end
+
+  create_table "question_types", force: :cascade do |t|
+    t.text "question_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "topics", force: :cascade do |t|
@@ -45,4 +70,8 @@ ActiveRecord::Schema.define(version: 20181104181154) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "links", "problems"
+  add_foreign_key "options", "problems"
+  add_foreign_key "problems", "question_types"
+  add_foreign_key "problems", "topics"
 end
