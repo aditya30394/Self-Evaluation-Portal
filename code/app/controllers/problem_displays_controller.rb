@@ -56,14 +56,29 @@ class ProblemDisplaysController < ApplicationController
     session[:current_problem] = @thisid
     @lastanswer =  session[:answers][@thisid]
     @problem = Problem.find(session[:problems][@thisid])
-    @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
+    
+    @correct_answers = Array.new      
+    if(@problem.question_type.question_type == "MCQ")
+      @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
+    end
+    if(@problem.question_type.question_type == "Short Answer")
+      @correct_answers.push(@problem.answer)
+    end
+    
     @your_answers = Array.new      
-
-    if(!@lastanswer.nil? && !@lastanswer.empty?)
-      @lastanswer.each do |id|
-        @your_answers.push(Option.find(id).answer)
+    if(@problem.question_type.question_type == "MCQ")
+      if(!@lastanswer.nil? && !@lastanswer.empty?)
+        @lastanswer.each do |id|
+          @your_answers.push(Option.find(id).answer)
+        end
       end
     end
+    if(@problem.question_type.question_type == "Short Answer")
+      if(!@lastanswer.nil? && !@lastanswer.empty?)
+        @your_answers.push(@lastanswer)
+      end
+    end
+    
     if(!session[:result])
       i=0
       result = 0
@@ -78,17 +93,30 @@ class ProblemDisplaysController < ApplicationController
       while(i<=@tillid)
         @problem = Problem.find(session[:problems][i])
         @topic = @problem.topic
-        @correct_answer = @problem.options.where("is_answer = true").pluck(:id)
+        if(@problem.question_type.question_type == "MCQ")
+          @correct_answer = @problem.options.where("is_answer = true").pluck(:id)
+        end
+        if(@problem.question_type.question_type == "Short Answer")
+          @correct_answer = @problem.answer
+        end
         @your_answer = session[:answers][i]
-        @ans = Array.new
-        if(!@your_answer.nil? && !@your_answer.empty?)
-          @your_answer.each do |ans|
-            @ans.push(ans.to_i)
+        if(@problem.question_type.question_type == "MCQ")
+          @ans = Array.new
+          if(!@your_answer.nil? && !@your_answer.empty?)
+            @your_answer.each do |ans|
+              @ans.push(ans.to_i)
+            end
+          end
+          if ((@correct_answer - @ans).empty? && (@ans - @correct_answer).empty?)
+            result += 1
+            session[:topic_results][@topic.id.to_s] += 1
           end
         end
-        if ((@correct_answer - @ans).empty? && (@ans - @correct_answer).empty?)
-          result += 1
-          session[:topic_results][@topic.id.to_s] += 1
+        if(@problem.question_type.question_type == "Short Answer")
+          if(@correct_answer.casecmp(@your_answer))
+            result += 1
+            session[:topic_results][@topic.id.to_s] += 1
+          end
         end
         session[:topic_problems][@topic.id.to_s] += 1
         i += 1
@@ -98,11 +126,15 @@ class ProblemDisplaysController < ApplicationController
   end
 
   def save_answer
-    params[:options].inspect
     @thisid = session[:current_problem]
-    session[:answers][@thisid] = params[:options]
-    @lastanswer =  session[:answers][@thisid]
     @problem = Problem.find(session[:problems][@thisid])
+    if(@problem.question_type.question_type == "Short Answer")
+      session[:answers][@thisid] = params[:student][:answer]
+    end
+    if(@problem.question_type.question_type == "MCQ")
+      session[:answers][@thisid] = params[:options]
+    end
+    @lastanswer =  session[:answers][@thisid]
     @option = @problem.options
     render 'quiz_problem'
   end

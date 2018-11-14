@@ -24,8 +24,6 @@ ActiveRecord::Schema.define(version: 20181104181154) do
     t.string "remember_digest"
     t.boolean "admin"
     t.boolean "activated"
-    t.string "reset_digest"
-    t.datetime "reset_sent_at"
     t.index ["email"], name: "index_instructors_on_email", unique: true
   end
 
