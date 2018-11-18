@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script type="text/javascript">
-      window.MathJax = {
-        extensions: ["tex2jax.js"],
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-        },
-        "HTML-CSS": { fonts: ["TeX"] }
-      };
-    </script>
-      
+  <head>  
     <script type="text/javascript" async
-      src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_SVG'>
+      src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_HTMLorMML'>
     </script>
     <title><%= full_title(yield(:title)) %></title>
     <%= favicon_link_tag image_path("tamu.png") %>
@@ -24,13 +13,20 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
-    <script type="text/javascript">
-      if (window.MathJax) {
-        MathJax.Hub.Queue(
-          ["Typeset",MathJax.Hub]
-        );
-      }
+    <script type="text/javascript"> 
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+        }
+      });
     </script>
+    <script type="text/javascript">
+      function mathjax() {
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        MathJax.Hub.Queue(["Reprocess",MathJax.Hub]);
+      }
+  </script>
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |message_type, message| %>

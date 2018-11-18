@@ -8,7 +8,7 @@
 
       <h1>Question: </h1>
       <div class = "problemview"><%= simple_format(@problem.question) %></div>
-
+     
       <h1>Answer: </h1>
       <div class = "problemview"><%= simple_format(@problem.answer) %></div>
 
@@ -19,6 +19,10 @@
       <br />
       <h1><%= link_to "Delete Problem", @problem, method: :delete,
                   data: {confirm: "Are you sure to delete this problem?"} %></h1>
+
+      <script type="text/javascript">
+        mathjax()
+      </script>
 
     </section>
   </aside>
