@@ -47,7 +47,10 @@ class ProblemsController < ApplicationController
       end
     # Problem is short answer type
     else
-      if @problem.save
+      if @problem[:answer].blank?
+        flash[:danger] = "Answer can't be blank."
+        redirect_to Problem.new
+      elsif @problem.save
         flash[:success] = "Problem created."
         save_link
         
