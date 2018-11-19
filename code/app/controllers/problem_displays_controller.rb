@@ -113,7 +113,7 @@ class ProblemDisplaysController < ApplicationController
           end
         end
         if(@problem.question_type.question_type == "Short Answer")
-          if(@correct_answer.casecmp(@your_answer))
+          if(@correct_answer.casecmp(@your_answer) == 0)
             result += 1
             session[:topic_results][@topic.id.to_s] += 1
           end
@@ -155,7 +155,13 @@ class ProblemDisplaysController < ApplicationController
       @thisid = 0
     end
     @problem = Problem.find(session[:problems][@thisid])
-    @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
+    @correct_answers = Array.new      
+    if(@problem.question_type.question_type == "MCQ")
+      @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
+    end
+    if(@problem.question_type.question_type == "Short Answer")
+      @correct_answers.push(@problem.answer)
+    end
   end
 
 end
