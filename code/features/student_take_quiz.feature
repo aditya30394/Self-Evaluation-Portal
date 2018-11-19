@@ -15,6 +15,23 @@ Feature: quiz taken by student
     Then I fill in "student_answer" with "A"
     And I press "Save Your Answer"
     Then I finish evaluation
+  
+  Scenario: 'Start Evaluation'
+    When I am on the homepage
+    Then I should see "Start Evaluation!"
+    And I start evaluation
+    Then I should see "Select Topics"
+    And I press "Select Topics"
+    Then I should see "Previous Problem"
+    And I should see "Next Problem"
+    When I follow "Next Problem"
+    And I follow "Next Problem"
+    When QuestionType is Short Answer
+    And I fill in "student_answer" with "Stack"
+    And I press "Save Your Answer"
+    Then I finish evaluation after "3" questions
+    And I follow "Next Problem"
+    And I follow "Next Problem"
     
     
   

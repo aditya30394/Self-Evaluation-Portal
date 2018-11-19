@@ -1,9 +1,13 @@
+When(/^QuestionType is Short Answer$/) do
+  @problem = Problem.find_by(id: 3)
+end
+  
 Then(/^I start evaluation$/) do
   visit quiz_path
 end
 
-Then(/^I finish evaluation$/) do
-  visit "/quiz_problem_answer"
+Then(/^I finish evaluation after "([0-9]*)" questions$/) do |id|
+  visit quiz_problem_answer_path(:tillid => id)
 end
 
 Then(/^I select flashcards$/) do
