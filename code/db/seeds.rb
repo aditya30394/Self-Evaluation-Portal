@@ -79,6 +79,17 @@ problem.options.create!(answer: "None of the above", is_answer: false)
 
 problem.links.create!(link: "https://www.tutorialspoint.com/data_structures_algorithms/depth_first_traversal.htm")
 problem.links.create!(link: "http://web.cs.unlv.edu/larmore/Courses/CSC477/bfsDfs.pdf")
+
+#=======================================================================================================#
+
+problem = topic.problems.create!(question: "Which data structures are used for Depth-first search (DFS) of a graph?",
+                      question_type: short_answer,
+                      answer: "Stack",
+                      remark: "Queue is used for breadth first traversal whereas stack is used for depth first traversal."
+)
+
+problem.links.create!(link: "https://www.tutorialspoint.com/data_structures_algorithms/depth_first_traversal.htm")
+problem.links.create!(link: "http://web.cs.unlv.edu/larmore/Courses/CSC477/bfsDfs.pdf")
 #=======================================================================================================#
 
 problem = topic.problems.create!(question: "Which one of the following uses LIFO(Last In First Out) for accessing elements?",
