@@ -3,8 +3,9 @@ Feature: quiz taken by student
   In order to use the website
   As a student
   I want to be able to take the quiz
-  
-  Scenario: 'Start Evaluation'
+
+#Evaluating correct MCQ answer case  
+  Scenario: 'Evaluating correct answer'
     When I am on the homepage 
     Then I should see "Start Evaluation!"
     And I start evaluation
@@ -20,6 +21,40 @@ Feature: quiz taken by student
     And I should see "Answer: Divide and conquer"
     And I should not see "Previous Problem"
     And I should not see "Next Problem"
+
+#Evaluating wrong MCQ answer case  
+  Scenario: 'Evaluating wrong MCQ answer'
+    When I am on the homepage 
+    Then I should see "Start Evaluation!"
+    And I start evaluation
+    Then I should see "Select Topics"
+    And I press "Select Topics"
+    Then I should see "Previous Problem"
+    And I should see "Next Problem"
+    Then I check "Greedy approach"
+    And I press "Save Your Answer"
+    Then I finish evaluation after "1" questions
+    Then I should see "Total 0/1"
+    And I should see "Your Answer: Greedy approach"
+    And I should see "Answer: Divide and conquer"
+    And I should not see "Previous Problem"
+    And I should not see "Next Problem"
+
+#Evaluating NO/Blank MCQ answer case  
+  Scenario: 'Evaluating NO/Blank MCQ answer'
+    When I am on the homepage 
+    Then I should see "Start Evaluation!"
+    And I start evaluation
+    Then I should see "Select Topics"
+    And I press "Select Topics"
+    Then I should see "Previous Problem"
+    And I should see "Next Problem"
+    Then I finish evaluation after "1" questions
+    Then I should see "Total 0/1"
+    And I should see "Your Answer: "
+    And I should see "Answer: Divide and conquer"
+    And I should not see "Previous Problem"
+    And I should not see "Next Problem"    
 
 #For evaluating the short answer questions  
   Scenario: 'Start Evaluation'
@@ -65,7 +100,7 @@ Feature: quiz taken by student
     Then I should see "Total 0/3"
     
 #Short answer question with case of the answer changed, should still work, verify based on the score report
-  Scenario: 'Start Evaluation'
+  Scenario: 'Short answer question with case of the answer changed'
     When I am on the homepage
     Then I should see "Start Evaluation!"
     And I start evaluation
@@ -79,8 +114,9 @@ Feature: quiz taken by student
     And I press "Save Your Answer"
     Then I finish evaluation after "3" questions
     Then I should see "Total 1/3"
+ 
  #short answer evaluation with blank answer, verify using the score report
-  Scenario: 'Start Evaluation'
+  Scenario: 'Short answer evaluation with blank answer'
     When I am on the homepage
     Then I should see "Start Evaluation!"
     And I start evaluation
