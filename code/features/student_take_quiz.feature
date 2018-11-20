@@ -12,9 +12,14 @@ Feature: quiz taken by student
     And I press "Select Topics"
     Then I should see "Previous Problem"
     And I should see "Next Problem"
-    Then I fill in "student_answer" with "A"
+    Then I check "Divide and conquer"
     And I press "Save Your Answer"
-    Then I finish evaluation
+    Then I finish evaluation after "1" questions
+    Then I should see "Total 1/1"
+    And I should see "Your Answer: Divide and conquer"
+    And I should see "Answer: Divide and conquer"
+    And I should not see "Previous Problem"
+    And I should not see "Next Problem"
 
 #For evaluating the short answer questions  
   Scenario: 'Start Evaluation'
