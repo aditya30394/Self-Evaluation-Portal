@@ -113,7 +113,9 @@ class ProblemDisplaysController < ApplicationController
           end
         end
         if(@problem.question_type.question_type == "Short Answer")
-          if(@correct_answer.casecmp(@your_answer) == 0)
+          jarow = FuzzyStringMatch::JaroWinkler.create( :native )
+          accuracy = jarow.getDistance(@correct_answer.downcase, @your_answer.downcase)
+          if(accuracy >= 0.7)
             result += 1
             session[:topic_results][@topic.id.to_s] += 1
           end
