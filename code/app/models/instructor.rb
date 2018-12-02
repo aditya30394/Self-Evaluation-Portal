@@ -37,9 +37,6 @@ class Instructor < ApplicationRecord
   end
   
   def password_reset_expired?
-    puts '$$$$$$$$$$$$$$'
-    puts '$$$$$$$$$$$$$$'
-    puts reset_sent_at
     reset_sent_at < 2.hours.ago
   end
   
