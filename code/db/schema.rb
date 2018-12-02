@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20181104181154) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "remember_digest"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.boolean "admin"
     t.boolean "activated"
     t.index ["email"], name: "index_instructors_on_email", unique: true
