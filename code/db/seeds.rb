@@ -269,3 +269,27 @@ problem = topic.problems.create!(question: "Have you taken Probability and Stati
 
 problem.options.create!(answer: "True", is_answer: true)
 problem.options.create!(answer: "False", is_answer: false)
+
+#=======================================================================================================#
+
+problem = topic.problems.create!(question: "$\\sum_{i=0}^n i^2 = \\frac{(n^2+n)(2n+1)}{x}$. What is x?",
+                      question_type: mcq,
+                      remark: "null."
+)
+
+problem.options.create!(answer: "2", is_answer: false)
+problem.options.create!(answer: "4", is_answer: false)
+problem.options.create!(answer: "6", is_answer: true)
+problem.options.create!(answer: "9", is_answer: false)
+
+#=======================================================================================================#
+
+problem = topic.problems.create!(question: "When $a \\ne 0$, there are two solutions to \\(ax^2 + bx + c = 0\\) and they are",
+                      question_type: mcq,
+                      remark: "null."
+)
+
+problem.options.create!(answer: "$x = {-b \\pm \\sqrt{b^2-2ac} \\over 2a}.$", is_answer: false)
+problem.options.create!(answer: "$x = {-b \\pm \\sqrt{b^2-ac} \\over 2a}.$", is_answer: false)
+problem.options.create!(answer: "$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$", is_answer: true)
+problem.options.create!(answer: "$x = {-b \\pm \\sqrt{b-4ac} \\over 2a}.$", is_answer: false)
