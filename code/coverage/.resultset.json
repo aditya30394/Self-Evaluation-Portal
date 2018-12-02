@@ -332,6 +332,12 @@
         null,
         0,
         0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
         null,
         null,
         null
@@ -386,6 +392,9 @@
         null,
         null,
         null,
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -530,7 +539,7 @@
       "/media/yashwanth/phi/csce606 project/code/app/models/instructor.rb": [
         1,
         1,
-        10,
+        15,
         1,
         1,
         1,
@@ -538,28 +547,28 @@
         null,
         1,
         1,
+        null,
+        1,
+        9,
+        null,
+        9,
+        null,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
         null,
         1,
         7,
         null,
-        7,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        5,
-        null,
         null,
         1,
         5,
@@ -567,7 +576,10 @@
         null,
         null,
         1,
-        0,
+        2,
+        2,
+        2,
+        2,
         null,
         null,
         1,
@@ -817,11 +829,11 @@
         0
       ]
     },
-    "timestamp": 1542473958
+    "timestamp": 1543792200
   },
   "Cucumber Features": {
     "coverage": {
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/controllers/sessions_controller.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/controllers/sessions_controller.rb": [
         1,
         1,
         null,
@@ -850,7 +862,7 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/controllers/application_controller.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/controllers/application_controller.rb": [
         1,
         1,
         1,
@@ -859,7 +871,7 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/helpers/application_helper.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/helpers/application_helper.rb": [
         1,
         null,
         1,
@@ -873,23 +885,23 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/helpers/instructors_helper.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/helpers/instructors_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/helpers/password_resets_helper.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/helpers/password_resets_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/helpers/problem_displays_helper.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/helpers/problem_displays_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/helpers/problems_helper.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/helpers/problems_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/helpers/sessions_helper.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/helpers/sessions_helper.rb": [
         1,
         null,
         1,
@@ -903,8 +915,8 @@
         null,
         null,
         1,
-        377,
-        283,
+        375,
+        281,
         94,
         0,
         0,
@@ -940,20 +952,20 @@
         null,
         null,
         1,
-        2,
+        3,
         null,
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/helpers/static_pages_helper.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/helpers/static_pages_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/helpers/topics_helper.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/helpers/topics_helper.rb": [
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/models/instructor.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/models/instructor.rb": [
         1,
         1,
         4,
@@ -994,6 +1006,9 @@
         null,
         1,
         0,
+        0,
+        0,
+        0,
         null,
         null,
         1,
@@ -1006,12 +1021,12 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/models/application_record.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/models/application_record.rb": [
         1,
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/controllers/instructors_controller.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/controllers/instructors_controller.rb": [
         1,
         1,
         1,
@@ -1119,7 +1134,7 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/controllers/topics_controller.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/controllers/topics_controller.rb": [
         1,
         1,
         1,
@@ -1138,8 +1153,8 @@
         null,
         null,
         1,
-        6,
-        6,
+        5,
+        5,
         null,
         null,
         1,
@@ -1179,9 +1194,9 @@
         null,
         1,
         23,
-        1,
-        1,
-        1,
+        2,
+        2,
+        2,
         null,
         null,
         null,
@@ -1195,14 +1210,14 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/models/topic.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/models/topic.rb": [
         1,
         1,
         1,
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/controllers/problems_controller.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/controllers/problems_controller.rb": [
         1,
         1,
         null,
@@ -1343,7 +1358,7 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/controllers/static_pages_controller.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/controllers/static_pages_controller.rb": [
         1,
         1,
         null,
@@ -1358,7 +1373,7 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/models/problem.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/models/problem.rb": [
         1,
         1,
         1,
@@ -1368,22 +1383,22 @@
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/models/question_type.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/models/question_type.rb": [
         1,
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/models/option.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/models/option.rb": [
         1,
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/models/link.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/models/link.rb": [
         1,
         1,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/controllers/problem_displays_controller.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/controllers/problem_displays_controller.rb": [
         1,
         1,
         9,
@@ -1391,7 +1406,7 @@
         null,
         1,
         72,
-        189,
+        198,
         9,
         null,
         9,
@@ -1552,13 +1567,80 @@
         null,
         null
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/mailers/application_mailer.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/jobs/application_job.rb": [
+        0,
+        0
+      ],
+      "/media/yashwanth/phi/csce606 project/code/app/channels/application_cable/channel.rb": [
         0,
         0,
         0,
         0
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/mailers/instructor_mailer.rb": [
+      "/media/yashwanth/phi/csce606 project/code/app/channels/application_cable/connection.rb": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "/media/yashwanth/phi/csce606 project/code/app/controllers/password_resets_controller.rb": [
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/media/yashwanth/phi/csce606 project/code/app/mailers/instructor_mailer.rb": [
         0,
         null,
         null,
@@ -1572,80 +1654,13 @@
         0,
         0
       ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/jobs/application_job.rb": [
-        0,
-        0
-      ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/channels/application_cable/connection.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/channels/application_cable/channel.rb": [
-        0,
-        0,
-        0,
-        0
-      ],
-      "/home/ec2-user/environment/Self-Evaluation-Portal-CSCE625/code/app/controllers/password_resets_controller.rb": [
-        0,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
+      "/media/yashwanth/phi/csce606 project/code/app/mailers/application_mailer.rb": [
         0,
         0,
         0,
         0
       ]
     },
-    "timestamp": 1542678383
+    "timestamp": 1543792190
   }
 }
