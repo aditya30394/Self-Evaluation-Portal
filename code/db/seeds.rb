@@ -68,13 +68,13 @@ problem.links.create!(link: "https://www.geeksforgeeks.org/quick-sort/")
 
 #=======================================================================================================#
 
-problem = topic.problems.create!(question: "Which data structures are used for Depth-first search (DFS) of a graph?",
+problem = topic.problems.create!(question: "Which data structures are used for Breadth-first search (BFS) of a graph?",
                       question_type: mcq,
                       remark: "Queue is used for breadth first traversal whereas stack is used for depth first traversal."
 )
 
-problem.options.create!(answer: "Queue", is_answer: false)
-problem.options.create!(answer: "Stack", is_answer: true)
+problem.options.create!(answer: "Queue", is_answer: true)
+problem.options.create!(answer: "Stack", is_answer: false)
 problem.options.create!(answer: "None of the above", is_answer: false)
 
 problem.links.create!(link: "https://www.tutorialspoint.com/data_structures_algorithms/depth_first_traversal.htm")
