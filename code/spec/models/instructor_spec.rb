@@ -135,7 +135,7 @@ describe Instructor do
     it 'expires after two hours' do
       @instructor.create_reset_digest
       @instructor.update_attribute(:reset_sent_at, 3.hours.ago)
-      expect(@instructor.password_reset_expired?).to be false
+      expect(@instructor.password_reset_expired?).to be true
     end
   end  
   
