@@ -15,10 +15,10 @@
       <h1>Question: </h1>
       <div class="problemview"><%= simple_format(@problem.question) %></div>
 
-
       <div>
         <%= link_to "Show Answer", quiz_flashcard_answer_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary col-xs-8", style: "margin: 30px 16.5% 30px 16.5%;" %>
       </div>
+      
       <div class = "buttons">
         <% if (@thisid==0) %>
           <%= link_to "<", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid) , class: "btn btn-primary col-xs-1" %>
