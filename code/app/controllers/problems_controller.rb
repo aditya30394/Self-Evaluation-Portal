@@ -114,7 +114,6 @@ class ProblemsController < ApplicationController
         end
       end
     else
-      byebug
       if problem_params[:answer].blank?
         flash[:danger] = "Answer can't be blank."
         redirect_to Problem.new
