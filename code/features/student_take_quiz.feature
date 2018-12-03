@@ -13,7 +13,7 @@ Feature: quiz taken by student
     And I press "Select Topics"
     Then I should see "<"
     And I should see ">"
-    Then I select "Divide and conquer" from "checkbox"
+    Then I check "Divide and conquer"
     And I press "Save Your Answer"
     Then I finish evaluation after "1" questions
     Then I should see "Total 1/1"

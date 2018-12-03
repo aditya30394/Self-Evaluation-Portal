@@ -22,16 +22,15 @@
         
         <% @option.each do |option| %>
           <div class="quiz_option">
+            <label>
             <% if (!@lastanswer.nil? &&  @lastanswer.include?(option.id.to_s)) %>
               <%= check_box_tag "options[]",option.id, true %> <span><%=option.answer%></span>
             <% else %>
               <%= check_box_tag "options[]",option.id %> <span><%=option.answer%></span>
             <% end %>
-            <%= f.label option.id, class: "checkbox inline" do %>
+            </label>
           </div>
-          <% end %>
         <% end %>
-
         <%= f.submit "Save Your Answer", class: "btn btn-primary col-xs-3", style: "margin: 30px 75% 30px 0%;"%>
       <% end %>
 
