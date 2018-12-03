@@ -20,7 +20,7 @@
     <% @options.each do |option| %>
       <div class="col-md-12">
         <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6" value="<%= option.answer %>"/>
-        <input type="checkbox" placeholder="Option <%= i + 1 %>" class="col-md-6" name="problem[correct[option<%= i %>]]" <% if (option.is_answer) %> checked <% end %>/>
+        <input type="checkbox" class="col-md-6" placeholder="Option <%= i + 1 %>" name="problem[correct[option<%= i %>]]" <% if (option.is_answer) %> checked <% end %>/>
       </div>
       <% i += 1%>
     <% end %>

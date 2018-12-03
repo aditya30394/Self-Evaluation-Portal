@@ -97,7 +97,7 @@ class ProblemsController < ApplicationController
           options[:options].each do |key|
             _is_answer = !options[:correct][key].nil?
             opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
-            if opt
+            if opt.valid?
               # Option saved
             else
               flash[:danger] = "Options not saved properly."
