@@ -67,30 +67,74 @@ class ProblemsController < ApplicationController
 
   def show
     @problem = Problem.find(params[:id])
+    @correct_answers = Array.new      
+    if(@problem.question_type.question_type == "MCQ")
+      @correct_answers = @problem.options.where("is_answer = true").pluck(:answer)
+    end
+    if(@problem.question_type.question_type == "Short Answer")
+      @correct_answers.push(@problem.answer)
+    end
   end
 
   def edit
     @problem = Problem.find(params[:id])
+    @options = @problem.options
     @topics = Topic.all
     @question_types = QuestionType.all
+    @links = @problem.links
   end
 
   def update
     @problem = Problem.find(params[:id])
-    if @problem.update_attributes(problem_params)
-      flash[:success] = "Problem updated."
-      redirect_to @problem
+    if problem_params[:question_type_id].to_i == 1
+      options = option_params
+      
+      if !options[:options].nil? && !options[:correct].nil?
+        if @problem.update_attributes(problem_params)
+          flash[:success] = "Problem updated."
+          
+          @problem.options.destroy_all
+          # Save all 4 options
+          options[:options].each do |key|
+            _is_answer = !options[:correct][key].nil?
+            opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
+            if opt
+              # Option saved
+            else
+              flash[:danger] = "Options not saved properly."
+            end
+          end
+          
+          # Save any links
+          update_link
+              
+          redirect_to @problem
+        else
+          render 'edit'
+        end
+      end
     else
-      render 'edit'
+      if problem_params[:answer].blank?
+        flash[:danger] = "Answer can't be blank."
+        redirect_to Problem.new
+      elsif @problem.update_attributes(problem_params)
+        @problem.options.destroy_all
+        flash[:success] = "Problem updated."
+        update_link
+        
+        redirect_to @problem
+      else
+        render 'new'
+      end
     end
   end
 
-    def destroy
-      topic = Problem.find(params[:id]).topic
-      Problem.find(params[:id]).destroy
-      flash[:success] = "Problem deleted."
-      redirect_to topic
-    end
+  def destroy
+    topic = Problem.find(params[:id]).topic
+    Problem.find(params[:id]).destroy
+    flash[:success] = "Problem deleted."
+    redirect_to topic
+  end
 
   private
 
@@ -111,6 +155,20 @@ class ProblemsController < ApplicationController
     link_param = params.require(:problem).permit(:link)
     
     if !link_param[:link].nil? && link_param[:link] != ""
+      opt = @problem.links.create(link: link_param[:link])
+      if opt
+        # Link created
+      else
+        flash[:danger] = "Link not created."
+      end
+    end
+  end
+  
+  def update_link
+    link_param = params.require(:problem).permit(:link)
+    
+    if !link_param[:link].nil? && link_param[:link] != ""
+      @problem.links.destroy_all
       opt = @problem.links.create(link: link_param[:link])
       if opt
         # Link created
