@@ -2,6 +2,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
+    RubyInline (3.12.4)
+      ZenTest (~> 4.3)
+    ZenTest (4.11.1)
     actioncable (5.1.4)
       actionpack (= 5.1.4)
       nio4r (~> 2.0)
@@ -112,6 +115,8 @@ GEM
     flickraw-cached (20120701)
       flickraw (>= 0.9)
     formatador (0.2.5)
+    fuzzy-string-match (1.0.1)
+      RubyInline (>= 3.8.6)
     gherkin (5.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -325,6 +330,7 @@ DEPENDENCIES
   database_cleaner
   faker (= 1.7.3)
   flickraw-cached
+  fuzzy-string-match
   guard (= 2.13.0)
   guard-minitest (= 2.4.4)
   htmlentities

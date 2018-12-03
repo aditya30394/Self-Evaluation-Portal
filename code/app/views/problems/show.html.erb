@@ -10,10 +10,26 @@
       <div class = "problemview"><%= simple_format(@problem.question) %></div>
      
       <h1>Answer: </h1>
-      <div class = "problemview"><%= simple_format(@problem.answer) %></div>
+      <div class="problemview">
+        <% @correct_answers.each do |c_answer| %>
+          <%= c_answer %> <br> 
+        <% end %>
+      </div>
 
       <h1>Remark: </h1>
       <div class = "problemview"><%= simple_format(@problem.remark) %></div>
+      
+      <%if (!@problem.links.empty?) %>
+      <h1>For more info: </h1>
+      <div class = "problemview">
+          <% @problem.links.each do |link| %>
+              <%= link_to nil, link.link %>
+              <br>
+          <% end %>
+      </div>
+      <%end%>
+      <br>
+      <br>
 
       <h1><%= link_to "Edit Problem", edit_problem_path(@problem) %> </h1>
       <br />

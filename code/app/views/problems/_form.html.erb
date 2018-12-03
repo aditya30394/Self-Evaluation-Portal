@@ -14,14 +14,26 @@
   <%= f.text_area :answer, placeholder: "Enter Answer here", class: 'form-control' %>
   
   <%= f.label "Add options for multiple-choice (select the correct answer)" %>
-  <% for i in 0..3 do %>
-    <div class="col-md-12">
-      <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6" />
-      <input type="checkbox" class="col-md-6" name="problem[correct[option<%= i %>]]" />
-    </div>
-  <% end %>
   
-  <input type="text" name="problem[link]" placeholder="Link", class='form-control' />
+  <% if (@options.present? && !@options.empty?) %>
+    <% i = 0 %>
+    <% @options.each do |option| %>
+      <div class="col-md-12">
+        <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6" value="<%= option.answer %>"/>
+        <input type="checkbox" class="col-md-6" name="problem[correct[option<%= i %>]]" <% if (option.is_answer) %> checked <% end %>/>
+      </div>
+      <% i += 1%>
+    <% end %>
+  <% else %>
+    <% for i in 0..3 do %>
+      <div class="col-md-12">
+        <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6"/>
+        <input type="checkbox" class="col-md-6" name="problem[correct[option<%= i %>]]"/>
+      </div>
+    <% end %>
+  <%end%>
+  
+  <input type="text" name="problem[link]" placeholder="Link", class='form-control' <% if(@links.present?) %> value="<%= @links.first.link %>" <%end%> />
   
   <%= f.text_area :remark, placeholder: "Remark", class: 'form-control' %>
 

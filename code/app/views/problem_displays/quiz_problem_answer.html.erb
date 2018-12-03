@@ -14,7 +14,29 @@
         <td> <%= session[:topic_results][id].to_s + "/" + session[:topic_problems][id].to_s %> </td> 
       </tr>
       <% end %>
-    </table>  
+    </table>
+    <table>
+      <colgroup>
+        <col width="40%"/>
+        <col width="20%"/>
+        <col width="50%"/>
+      </colgroup>
+      <% id = 0 %>
+      <%  while(id<=@tillid) %>
+      <tr>
+        <td><%= link_to "Question " + (id+1).to_s, quiz_problem_answer_path(:thisid => id, :nextid => id), style: "width:20%"  %></td>
+        <td></td>
+        <td> 
+          <% if(session[:results][id.to_s]) %> 
+            <span class="greenText"> Correct </span>
+          <% else %>
+            <span class="redText"> Incorrect </span>
+          <% end %>
+        </td> 
+      </tr>
+      <% id += 1 %>
+      <% end %>
+    </table>
   </div>
   </div>
   <aside class="col-md-8 col-xs-6">
@@ -51,7 +73,7 @@
            <% @problem.links.each do |link| %>
               <%= link_to nil, link.link%>
               <br>
-            <% end %>
+           <% end %>
       </div>
       <% end %>
 

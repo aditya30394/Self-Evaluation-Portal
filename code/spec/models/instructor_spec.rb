@@ -125,6 +125,18 @@ describe Instructor do
       expect(@instructor.forget).to eq(tmp)
     end
   end
-  
+
+  describe "password reset" do
+    it 'does not expire within two hours' do
+      @instructor.create_reset_digest
+      expect(@instructor.password_reset_expired?).to be false
+    end
+
+    it 'expires after two hours' do
+      @instructor.create_reset_digest
+      @instructor.update_attribute(:reset_sent_at, 3.hours.ago)
+      expect(@instructor.password_reset_expired?).to be true
+    end
+  end  
   
 end

@@ -29,7 +29,14 @@ class ProblemDisplaysController < ApplicationController
       @thisid = params[:nextid].to_i
     else
       @thisid = 0
+      session[:tillid] = 0
     end
+  
+    @tillid = session[:tillid].to_i
+    if(@tillid < @thisid)
+      session[:tillid] = @thisid
+    end
+    
     session[:current_problem] = @thisid
     @lastanswer =  session[:answers][@thisid]
 
@@ -45,13 +52,8 @@ class ProblemDisplaysController < ApplicationController
       @thisid = 0
       session.delete(:result)                                                   #clear the result from session once a new eval is triggered
     end
-    
-    if(params[:tillid] && session[:tillid] != params[:tillid])
-      @tillid = params[:tillid].to_i                                            #check till which problem has the user answered
-      session[:tillid] = @tillid
-    elsif (session[:tillid])
-      @tillid = session[:tillid].to_i
-    end
+  
+    @tillid = session[:tillid].to_i
     
     session[:current_problem] = @thisid
     @lastanswer =  session[:answers][@thisid]
@@ -85,6 +87,7 @@ class ProblemDisplaysController < ApplicationController
       session[:topic_results] = Hash.new
       session[:topic_problems] = Hash.new
       session[:topic_names] = Hash.new
+      session[:results] = Hash.new
       session[:topics].each do |id|
         session[:topic_names][id] = Topic.find(id).name
         session[:topic_results][id] = 0
@@ -110,12 +113,20 @@ class ProblemDisplaysController < ApplicationController
           if ((@correct_answer - @ans).empty? && (@ans - @correct_answer).empty?)
             result += 1
             session[:topic_results][@topic.id.to_s] += 1
+            session[:results][i.to_s] = true
+          else
+            session[:results][i.to_s] = false
           end
         end
         if(@problem.question_type.question_type == "Short Answer")
-          if(@correct_answer.casecmp(@your_answer) == 0)
+          jarow = FuzzyStringMatch::JaroWinkler.create( :native )
+          accuracy = jarow.getDistance(@correct_answer.downcase, @your_answer.downcase)
+          if(accuracy >= 0.7)
             result += 1
             session[:topic_results][@topic.id.to_s] += 1
+            session[:results][i.to_s] = true
+          else
+            session[:results][i.to_s] = false
           end
         end
         session[:topic_problems][@topic.id.to_s] += 1
