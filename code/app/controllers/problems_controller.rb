@@ -16,7 +16,6 @@ class ProblemsController < ApplicationController
     # Problem is MCQ
     if @problem[:question_type_id] == 1
       options = option_params
-      
       if !options[:options].nil? && !options[:correct].nil?
         # Save problem first to add options(Options belongs to Problems)
         if @problem.save
@@ -26,7 +25,7 @@ class ProblemsController < ApplicationController
           options[:options].each do |key|
             _is_answer = !options[:correct][key].nil?
             opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
-            if opt
+            if opt.valid?
               # Option saved
             else
               flash[:danger] = "Options not saved properly."
@@ -185,7 +184,6 @@ class ProblemsController < ApplicationController
       redirect_to login_url
     end
   end
-
   def correct_instructor
     @instructor = Instructor.find(params[:id])
     redirect_to(root_url) unless current_instructor?(@instructor)
