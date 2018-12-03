@@ -1,9 +1,14 @@
 <% provide(:title, "Problem "+(@thisid+1).to_s) %>
-<h1><%= "Problem " + (@thisid+1).to_s + "/" + session[:problems].size.to_s %></h1>
+
 <div class="row">
   <aside class="col-md-8 col-md-offset-2 col-xs-12">
+    <h1>
+      Question <%= (@thisid+1) %>
+    </h1>
+    <div class="progress" style="margin: 20px 0px; height: 25px;">
+        <div class="progress-bar progress-bar-success" role="progressbar" style="width: <%= (@thisid+1).to_f/(session[:problems].size)*100 %>%;"><%= (@thisid+1).to_s + "/" + session[:problems].size.to_s %></div>
+    </div>
     <section class="problem_info">
-
       <h1>Problem Topic: </h1>
       <div class="problemview"><%= @problem.topic.name%></div>
 
@@ -49,7 +54,7 @@
     <script type="text/javascript">
       mathjax()
     </script>
-
+    
     </section>
   </aside>
 </div>

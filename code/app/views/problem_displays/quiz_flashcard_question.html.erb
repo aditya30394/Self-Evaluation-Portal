@@ -1,7 +1,12 @@
 <% provide(:title, "Problem " + (@thisid+1).to_s) %>
-<h1><%= "Problem " + (@thisid+1).to_s + "/" + session[:problems].size.to_s%></h1>
 <div class="row">
-  <aside class="col-md-12">
+  <aside class="col-md-8 col-md-offset-2 col-xs-12">
+    <h1>
+      Question <%= (@thisid+1) %>
+    </h1>
+    <div class="progress" style="margin: 20px 0px; height: 25px;">
+        <div class="progress-bar progress-bar-success" role="progressbar" style="width: <%= (@thisid+1).to_f/(session[:problems].size)*100 %>%;"><%= (@thisid+1).to_s + "/" + session[:problems].size.to_s %></div>
+    </div>
     <section class="problem_info">
 
       <h1>Problem Topic: </h1>
@@ -12,22 +17,24 @@
 
 
       <div>
-        <%= link_to "Show Answer", quiz_flashcard_answer_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary", style: "width:100%" %>
+        <%= link_to "Show Answer", quiz_flashcard_answer_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary col-xs-8", style: "margin: 30px 16.5% 30px 16.5%;" %>
       </div>
       <div class = "buttons">
         <% if (@thisid==0) %>
-          <%= link_to "Previous Problem", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid) , class: "btn btn-primary", style: "width:20%" %>
+          <%= link_to "<", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid) , class: "btn btn-primary col-xs-1" %>
         <% else %>
-          <%= link_to "Previous Problem", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid - 1), class: "btn btn-primary", style: "width:20%" %>
+          <%= link_to "<", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid - 1), class: "btn btn-primary col-xs-1" %>
         <% end %>
+        
+        <div>
+          <%= link_to "Quit Evaluation", root_path , class: "btn btn-primary col-xs-8 col-xs-offset-1" %>
+        </div>
+        
         <% if (@thisid==session[:problems].size-1) %>
-          <%= link_to "Next Problem", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary" , style: "width:20%;float:right" %>
+          <%= link_to ">", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid), class: "btn btn-primary col-xs-1 col-xs-offset-1" %>
         <% else %>
-          <%= link_to "Next Problem", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid + 1), class: "btn btn-primary", style: "width:20%;float:right" %>
+          <%= link_to ">", quiz_flashcard_question_path(:thisid => @thisid, :nextid => @thisid + 1), class: "btn btn-primary col-xs-1 col-xs-offset-1" %>
         <% end %>
-      </div>
-      <div>
-        <%= link_to "Quit Evaluation", root_path , class: "btn btn-primary", style: "width:20%" %>
       </div>
 
       <script type="text/javascript">
