@@ -16,7 +16,6 @@ class ProblemsController < ApplicationController
     # Problem is MCQ
     if @problem[:question_type_id] == 1
       options = option_params
-      
       if !options[:options].nil? && !options[:correct].nil?
         # Save problem first to add options(Options belongs to Problems)
         if @problem.save
@@ -26,7 +25,7 @@ class ProblemsController < ApplicationController
           options[:options].each do |key|
             _is_answer = !options[:correct][key].nil?
             opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
-            if opt
+            if opt.valid?
               # Option saved
             else
               flash[:danger] = "Options not saved properly."
@@ -88,7 +87,6 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     if problem_params[:question_type_id].to_i == 1
       options = option_params
-      
       if !options[:options].nil? && !options[:correct].nil?
         if @problem.update_attributes(problem_params)
           flash[:success] = "Problem updated."
@@ -97,8 +95,9 @@ class ProblemsController < ApplicationController
           # Save all 4 options
           options[:options].each do |key|
             _is_answer = !options[:correct][key].nil?
+            print "option values are #{options[:options][key]}"
             opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
-            if opt
+            if opt.valid?
               # Option saved
             else
               flash[:danger] = "Options not saved properly."
@@ -112,6 +111,9 @@ class ProblemsController < ApplicationController
         else
           render 'edit'
         end
+      else
+        flash[:danger] = "Provide answers and correct choices for MCQ."
+        redirect_to Problem.new
       end
     else
       if problem_params[:answer].blank?
@@ -185,7 +187,6 @@ class ProblemsController < ApplicationController
       redirect_to login_url
     end
   end
-
   def correct_instructor
     @instructor = Instructor.find(params[:id])
     redirect_to(root_url) unless current_instructor?(@instructor)
