@@ -119,7 +119,7 @@ Feature: question management by instructor
     Then I press "Create Problem"
     Then I should see "Answer can't be blank"
     
-  Scenario: 'Edit Problems by Topics'
+  Scenario: 'Edit Problems by Topics for Short Answer'
     When I log in with hanna's information
     Then I click View Problems
     Then I should see "All problems"
@@ -132,6 +132,51 @@ Feature: question management by instructor
     Then I fill in "Remark" with "1"
     And I press "Save Changes"
     Then I should see "Problem updated"
+  
+  Scenario: 'Edit Problems by Topics for type MCQ'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Quick sort algorithm is an example of?"
+    When I follow "Quick sort algorithm is an example of?"
+    Then I follow "Edit Problem"
+    Then I should see "Update Problem"
+    When I select "MCQ" from "problem_question_type_id"
+    And I fill in "Option 2" with "Binary Search"
+    Then I fill in "Remark" with "1"
+    And I press "Save Changes"
+    Then I should see "Problem updated"
+    
+  Scenario: 'Edit Problems by Topics for type MCQ with correct answer left blank'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Quick sort algorithm is an example of?"
+    When I follow "Quick sort algorithm is an example of?"
+    Then I follow "Edit Problem"
+    Then I should see "Update Problem"
+    When I select "MCQ" from "problem_question_type_id"
+    And I uncheck "Option 4"
+    Then I fill in "Remark" with "1"
+    And I press "Save Changes"
+    Then I should see "Provide answers and correct choices for MCQ."
+    
+  Scenario: 'Edit Problems by Topics for type MCQ with Options made blank'
+    When I log in with hanna's information
+    Then I click View Problems
+    Then I should see "All problems"
+    And I should see "Quick sort algorithm is an example of?"
+    When I follow "Quick sort algorithm is an example of?"
+    Then I follow "Edit Problem"
+    Then I should see "Update Problem"
+    When I select "MCQ" from "problem_question_type_id"
+    And I fill in "Option 1" with ""
+    And I fill in "Option 2" with ""
+    And I fill in "Option 3" with ""
+    And I fill in "Option 4" with ""
+    Then I fill in "Remark" with "1"
+    And I press "Save Changes"
+    Then I should see "Options not saved properly."
     
   Scenario: 'Delete Problems by Topics'
     When I log in with hanna's information
