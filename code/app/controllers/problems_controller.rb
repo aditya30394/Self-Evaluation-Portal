@@ -15,20 +15,29 @@ class ProblemsController < ApplicationController
     
     # Problem is MCQ
     if @problem[:question_type_id] == 1
-      options = option_params
-      if !options[:options].nil? && !options[:correct].nil?
-        # Save problem first to add options(Options belongs to Problems)
-        if @problem.save
-          flash[:success] = "Problem created."
+      if @problem.save
+        flash[:success] = "Problem created."
+        options = option_params
+        if !options[:options].nil? && !options[:correct].nil?
+          # Save problem first to add options(Options belongs to Problems)
+          
           
           # Save all 4 options
           options[:options].each do |key|
             _is_answer = !options[:correct][key].nil?
             opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
+            if(_is_answer && options[:options][key].empty?)
+              flash[:danger] = "Provide answers and correct choices for MCQ."
+              @topics = Topic.all
+              @question_types = QuestionType.all
+              @options = @problem.options
+              render 'new'
+              return
+            end
             if opt.valid?
               # Option saved
             else
-              flash[:danger] = "Options not saved properly."
+              flash[:danger] = "Empty options were discarded."
             end
           end
           
@@ -37,18 +46,24 @@ class ProblemsController < ApplicationController
           
           redirect_to @problem
         else
-          flash[:danger] = "Unable to save Problem."
-          redirect_to Problem.new
+          flash[:danger] = "Provide answers and correct choices for MCQ."
+          @topics = Topic.all
+          @question_types = QuestionType.all
+          render 'new'
         end
       else
-        flash[:danger] = "Provide answers and correct choices for MCQ."
-        redirect_to Problem.new
+        flash[:danger] = "Unable to save Problem."
+        @topics = Topic.all
+        @question_types = QuestionType.all
+        render 'new'
       end
     # Problem is short answer type
     else
       if @problem[:answer].blank?
         flash[:danger] = "Answer can't be blank."
-        redirect_to Problem.new
+        @topics = Topic.all
+        @question_types = QuestionType.all
+        render 'new'
       elsif @problem.save
         flash[:success] = "Problem created."
         save_link
@@ -87,9 +102,8 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     if problem_params[:question_type_id].to_i == 1
       options = option_params
-      if !options[:options].nil? && !options[:correct].nil?
-        if @problem.update_attributes(problem_params)
-          flash[:success] = "Problem updated."
+      if @problem.update_attributes(problem_params)
+        if !options[:options].nil? && !options[:correct].nil?
           
           @problem.options.destroy_all
           # Save all 4 options
@@ -97,10 +111,18 @@ class ProblemsController < ApplicationController
             _is_answer = !options[:correct][key].nil?
             print "option values are #{options[:options][key]}"
             opt = @problem.options.create(answer: options[:options][key], is_answer: _is_answer)
+            if(_is_answer && options[:options][key].empty?)
+              flash[:danger] = "Provide answers and correct choices for MCQ."
+              @topics = Topic.all
+              @question_types = QuestionType.all
+              @options = @problem.options
+              render 'edit'
+              return
+            end
             if opt.valid?
               # Option saved
             else
-              flash[:danger] = "Options not saved properly."
+              flash[:danger] = "Empty options were discarded."
             end
           end
           
@@ -108,20 +130,30 @@ class ProblemsController < ApplicationController
           update_link
               
           redirect_to @problem
+          flash[:success] = "Problem updated."
         else
+          flash[:danger] = "Provide answers and correct choices for MCQ."
+          @topics = Topic.all
+          @question_types = QuestionType.all
+          @options = @problem.options
           render 'edit'
         end
       else
-        flash[:danger] = "Provide answers and correct choices for MCQ."
-        redirect_to Problem.new
+        flash[:danger] = "Unable to save Problem."
+        @topics = Topic.all
+        @question_types = QuestionType.all
+        render 'edit'
       end
     else
       if problem_params[:answer].blank?
         flash[:danger] = "Answer can't be blank."
-        redirect_to Problem.new
+        @topics = Topic.all
+        @question_types = QuestionType.all
+        render 'new'
       elsif @problem.update_attributes(problem_params)
-        @problem.options.destroy_all
         flash[:success] = "Problem updated."
+        
+        @problem.options.destroy_all
         update_link
         
         redirect_to @problem
@@ -150,7 +182,7 @@ class ProblemsController < ApplicationController
   end
   
   def option_params
-    params.require(:problem).permit(:correct => [:option0, :option1, :option2, :option3], :options => [:option0, :option1, :option2, :option3])
+    params.require(:problem)
   end
   
   def save_link
