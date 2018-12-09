@@ -15,23 +15,38 @@
   
   <%= f.label "Add options for multiple-choice (select the correct answer)" %>
   
+  <div id = 'options'>
   <% if (@options.present? && !@options.empty?) %>
     <% i = 0 %>
     <% @options.each do |option| %>
       <div class="col-md-12">
         <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6" value="<%= option.answer %>"/>
-        <input type="checkbox" class="col-md-6" placeholder="Option <%= i + 1 %>" name="problem[correct[option<%= i %>]]" <% if (option.is_answer) %> checked <% end %>/>
+        <input type="checkbox" class="widthAuto ml15px" name="problem[correct[option<%= i %>]]" <% if (option.is_answer) %> checked <% end %>/>
+        <%= link_to 'Remove Option',
+          '',
+          :onclick => "removeOption(this); return false",
+          class: 'widthAuto'%>
       </div>
       <% i += 1%>
     <% end %>
   <% else %>
     <% for i in 0..3 do %>
-      <div class="col-md-12">
+      <div class="col-md-12" id="Option <%= i + 1 %>">
         <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6"/>
-        <input type="checkbox" placeholder="Option <%= i + 1 %>" class="col-md-6" name="problem[correct[option<%= i %>]]"/>
+        <input type="checkbox" class="widthAuto ml15px" name="problem[correct[option<%= i %>]]"/>
+        <%= link_to 'Remove Option',
+          '',
+          :onclick => "removeOption(this); return false",
+          class: 'widthAuto'%>
       </div>
     <% end %>
   <%end%>
+  </div>
+  
+  <%= link_to 'Add New Option',
+        '',
+        :onclick => "addNewOption(this); return false",
+        class: 'col-md-12 mb15px'%>
   
   <input type="text" name="problem[link]" placeholder="Link", class='form-control' <% if(@links.present?) %> value="<%= @links.first.link %>" <%end%> />
   
