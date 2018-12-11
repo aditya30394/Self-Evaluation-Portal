@@ -16,12 +16,16 @@ class ProblemsController < ApplicationController
     # Problem is MCQ
     if @problem[:question_type_id] == 1
       if @problem.save
+        # Save problem first to add options(Options belongs to Problems)
         flash[:success] = "Problem created."
         options = option_params
-        if !options[:options].nil? && !options[:correct].nil?
-          # Save problem first to add options(Options belongs to Problems)
-          
-          
+        options_not_nil = false
+         options[:options].each do |key|
+          if !key.nil?
+            options_not_nil = true
+          end
+         end
+        if options_not_nil && !options[:correct].nil?
           # Save all 4 options
           options[:options].each do |key|
             _is_answer = !options[:correct][key].nil?
@@ -103,8 +107,13 @@ class ProblemsController < ApplicationController
     if problem_params[:question_type_id].to_i == 1
       options = option_params
       if @problem.update_attributes(problem_params)
-        if !options[:options].nil? && !options[:correct].nil?
-          
+        options_not_nil = false
+         options[:options].each do |key|
+          if !key.nil?
+            options_not_nil = true
+          end
+         end
+        if options_not_nil && !options[:correct].nil?
           @problem.options.destroy_all
           # Save all 4 options
           options[:options].each do |key|
