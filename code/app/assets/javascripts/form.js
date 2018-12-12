@@ -19,8 +19,10 @@
             $(this).attr('name',"problem[options[option" + $('.col-md-12').size() + "]]");
             $(this).attr('placeholder', "Option " + ($('.col-md-12').size()));
             $(this).attr('value',"");
+            $(this).val("");
           } else {
             $(this).attr('name',"problem[correct[option" + $('.col-md-12').size() + "]]");
+            $(this).attr('placeholder', "Option " + ($('.col-md-12').size()));
             $(this).attr('checked', false); 
           }
         });

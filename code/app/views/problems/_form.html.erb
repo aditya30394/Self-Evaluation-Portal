@@ -21,7 +21,7 @@
     <% @options.each do |option| %>
       <div class="col-md-12">
         <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6" value="<%= option.answer %>"/>
-        <input type="checkbox" class="widthAuto ml15px" name="problem[correct[option<%= i %>]]" <% if (option.is_answer) %> checked <% end %>/>
+        <input type="checkbox" placeholder="Option <%= i + 1 %>" class="widthAuto ml15px" name="problem[correct[option<%= i %>]]" <% if (option.is_answer) %> checked <% end %>/>
         <%= link_to 'Remove Option',
           '',
           :onclick => "removeOption(this); return false",
@@ -33,7 +33,7 @@
     <% for i in 0..3 do %>
       <div class="col-md-12" id="Option <%= i + 1 %>">
         <input type="text" placeholder="Option <%= i + 1 %>" name="problem[options[option<%= i %>]]" class="col-md-6"/>
-        <input type="checkbox" class="widthAuto ml15px" name="problem[correct[option<%= i %>]]"/>
+        <input type="checkbox" placeholder="Option <%= i + 1 %>" class="widthAuto ml15px" name="problem[correct[option<%= i %>]]"/>
         <%= link_to 'Remove Option',
           '',
           :onclick => "removeOption(this); return false",

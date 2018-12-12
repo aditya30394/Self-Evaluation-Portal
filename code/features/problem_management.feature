@@ -101,7 +101,7 @@ Feature: question management by instructor
     And I check "Option 2"
     And I fill in "Remark" with "1"
     Then I press "Create Problem"
-    Then I should see "Options not saved properly."
+    Then I should see "Empty options were discarded."
     
   Scenario: 'Add Problems by Topics with null'
     When I log in with hanna's information
@@ -176,7 +176,7 @@ Feature: question management by instructor
     And I fill in "Option 4" with ""
     Then I fill in "Remark" with "1"
     And I press "Save Changes"
-    Then I should see "Options not saved properly."
+    Then I should see "Provide answers and correct choices for MCQ."
     
   Scenario: 'Delete Problems by Topics'
     When I log in with hanna's information
