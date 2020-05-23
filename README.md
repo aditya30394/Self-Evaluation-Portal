@@ -29,25 +29,18 @@ addition, the instructors now have the opportunity to reset “Lost Password”s
 
 Initial code is taken as it is from this repo - https://github.com/wagerpascal/team_froyo 
 
-**Summary of Iterations**
+## Features
+**Instructors**:
+1. Can login and add/edit/update questions and topics
+2. Can choose between a multiple-choice question or short answer type question
+3. Can add math in the questions
+4. Can recover passwords
 
-Iteration 0 : Met the customer to understand expectations and for formulating the requirements.
-The team worked on creating UI mockups and on drafting user stories.
+**Students**:
+1. Can take the quiz and evaluate their performance using the feedback and remarks generated at the end
+2. Can select the topics they want be tested on
+3. Can go through the questions like flashcards
 
-Iteration 1 : The stories for migrating/updating the Database schema were taken up first to support
-related application changes in the future iterations.
-
-Iteration 2 : Major requirements including creating Multiple-Choice Questions, automating the
-grading and report generation, support for Mathematical equations, and setting up a password
-recovery system were taking up during this iteration. Furthermore, the views were also modified to
-reflect the schema changes performed in Iteration 1.
-
-Iteration 3 : The focus during the third iteration was to fix the previously failing acceptance tests. In
-addition, the logic to support “Short Answer” questions was created.
-
-Iteration 4 : The team worked on enhancing the User Interface to make it responsive. Also, the
-evaluation for the “Short Answer” question was made robust by introducing partial checking.
-RSpec tests were added to increase code coverage.
 
 ## BDD/TDD process
 We followed the development process which was introduced in the class itself where we wrote
@@ -99,6 +92,12 @@ simple method for generating test coverage reports.
 2. Application Demo : https://vimeo.com/305544529
 3. Pivotal tracker : https://www.pivotaltracker.com/n/projects/2200809
 4. Heroku App : https://shielded-caverns-97668.herokuapp.com/
+
+## Challenges faced
+1. Even though addition of equations looked straightforward using the open-source library called MathJax, getting it to work correctly took us some time. We faced problems displaying equations during navigation between the questions.
+2. As Heroku doesn’t provide a free SMTP service, we came up with a workaround to support password recovery.
+3. The automatic deployment feature of Heroku never worked for us and we always had to perform manual deployment.
+
 
 ### Customer Interview
 [![Customer Interview](https://raw.githubusercontent.com/aditya30394/Self-Evaluation-Portal-CSCE625/master/homepage.JPG)](https://vimeo.com/304276474)
